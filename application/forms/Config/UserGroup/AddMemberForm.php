@@ -49,7 +49,7 @@ class AddMemberForm extends SimpleSearchField
             return false;
         }
 
-        $userNames = array_unique(explode(self::TERM_SEPARATOR , urldecode($q)));
+        $userNames = array_unique(explode(self::TERM_SEPARATOR, urldecode($q)));
         $userNames = array_map('trim', $userNames);
 
         $single = null;

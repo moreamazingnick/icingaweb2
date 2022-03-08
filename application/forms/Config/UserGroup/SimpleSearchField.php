@@ -11,7 +11,7 @@ use ipl\Html\HtmlElement;
 use ipl\Web\Url;
 
 /**
- * Form for adding one or more group members
+ * Form for simple value based search
  */
 abstract class SimpleSearchField extends Form
 {
