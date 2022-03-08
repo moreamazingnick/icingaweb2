@@ -582,3 +582,45 @@ form.icinga-form .form-info {
     }
   }
 }
+
+form.search-field {
+  width: 100%;
+
+  input.search {
+    padding-left: 1.5em;
+  }
+
+  .term-container {
+    margin-top: 1em;
+
+    label {
+      position: relative;
+    }
+
+    label .term-icon {
+      display: none;
+      position: absolute;
+      right: 6px;
+      top: -1px;
+    }
+
+    label:hover {
+      .term-icon {
+        display: inline-block;
+        color: #f56;
+        background: var(--search-term-bg, @search-term-bg);
+      }
+    }
+
+    input[type="button"] {
+      margin-right: 0.5em;
+      margin-bottom: 0.5em;
+      max-width: 10em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background-color: var(--search-term-bg, @search-term-bg);
+      color: var(--search-term-color, @search-term-color);
+    }
+  }
+}
