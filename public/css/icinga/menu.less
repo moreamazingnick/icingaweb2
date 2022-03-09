@@ -10,20 +10,14 @@
 @icon-width: 1.7em; // 1.5em width + 0.2em right margin
 
 #menu {
+  display: flex;
+  flex-direction: column;
+
   background-color: @menu-bg-color;
   width: 100%;
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
-}
-
-#layout:not(.minimal-layout) #menu {
-  // Space for the #toggle-sidebar button
-  &:after {
-    content: "";
-    display: block;
-    padding-bottom: 2.25em;
-  }
 }
 
 #menu .nav-item {
