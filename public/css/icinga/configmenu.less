@@ -1,0 +1,86 @@
+.config-menu {
+  // debug
+  background: lavender;
+  position: relative;
+  margin-top: auto;
+
+  .nav.nav-level-1 {
+    display: flex;
+    flex-wrap: nowrap;
+
+    .nav-item {
+      &:first-child {
+        width: 100%;
+      }
+
+      &:last-child {
+        margin-right: 28px;
+      }
+    }
+  }
+
+  .nav-item {
+    &:hover .nav-level-2 {
+      display: block;
+    }
+  }
+
+  .nav-item-logout {
+    color: @color-critical
+  }
+
+  .user-ball {
+    background: @icinga-blue;
+    color: white;
+
+    // ipl-web/asset/css/balls.less: .ball
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+
+    // ipl-web/asset/css/balls.less: .ball-size-l
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em - 2/6em;
+
+    // ipl-web/asset/css/balls.less: .ball-solid(@icinga-blue)
+    background-color: @icinga-blue;
+    color: var(--default-text-color-inverted, @default-text-color-inverted);
+    padding: 1/6em;
+
+    // icingadb-web/public/css/common.less: .user-ball
+    font-weight: bold;
+    line-height: 1.75;
+    text-transform: uppercase;
+
+    font-style: normal;
+    margin-right: .2em;
+  }
+}
+
+.flyout {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: .5em;
+  right: .5em;
+  border: 1px solid @gray-lighter;
+  background: @body-bg-color;
+  padding: .5em;
+  box-shadow: 0 0 1em 0 rgba(0,0,0,.25);
+  .rounded-corners();
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+    background: @body-bg-color;
+    border-bottom: 1px solid @gray-lighter;
+    border-right: 1px solid @gray-lighter;
+    height: 1.1em;
+    width: 1.1em;
+    bottom: -.6em;
+    right: 28px;
+  }
+}
