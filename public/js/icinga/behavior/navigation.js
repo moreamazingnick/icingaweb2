@@ -114,12 +114,14 @@
             return false;
         }
 
-        if (href.match(/#/)) {
-            // ...it may be a menu section without a dedicated link.
-            // Switch the active menu item:
-            _this.setActiveAndSelected($a);
-        } else {
-            _this.setActiveAndSelected($(event.target));
+        if (href) {
+            if (href.match(/#/)) {
+                // ...it may be a menu section without a dedicated link.
+                // Switch the active menu item:
+                _this.setActiveAndSelected($a);
+            } else {
+                _this.setActiveAndSelected($(event.target));
+            }
         }
         // update target url of the menu container to the clicked link
         var $menu = $('#menu');
