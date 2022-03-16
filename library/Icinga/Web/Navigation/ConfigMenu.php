@@ -133,7 +133,7 @@ class ConfigMenu extends BaseHtmlElement
     {
         $level2Nav = HtmlElement::create(
             'div',
-            Attributes::create(['class' => 'nav-level-2 flyout caret-bottom'])
+            Attributes::create(['class' => 'nav-level-2 flyout'])
         );
 
         $this->assembleLevel2Nav($level2Nav);
@@ -143,11 +143,7 @@ class ConfigMenu extends BaseHtmlElement
 
     protected function assembleLevel2Nav(BaseHtmlElement $level2Nav)
     {
-        foreach ($this->children as $key => $c) {
-            if ($key == 'health') {
-                $healthBadge = $this->createHealthBadge();
-            }
-
+        foreach ($this->children as $c) {
             if (isset($c['title'])) {
                 $level2Nav->add(HtmlElement::create(
                     'h3',
@@ -157,7 +153,13 @@ class ConfigMenu extends BaseHtmlElement
             }
 
             $ul = HtmlElement::create('ul', ['class' => 'nav']);
-            foreach ($c['items'] as $item) {
+            foreach ($c['items'] as $key => $item) {
+                $healthBadge = null;
+                $class = null;
+                if ($key === 'health') {
+                    $class = ' badge-nav-item';
+                    $healthBadge = $this->createHealthBadge();
+                }
                 $li = HtmlElement::create(
                     'li',
                     isset($item['atts']) ? $item['atts'] : [],
@@ -165,12 +167,14 @@ class ConfigMenu extends BaseHtmlElement
                         HtmlElement::create(
                             'a',
                             Attributes::create(['href' => $item['url']]),
-                            t($item['label'])
+                            [
+                                t($item['label']),
+                                isset($healthBadge) ? $healthBadge : ''
+                            ]
                         ),
-                        isset($healthBadge) ? $healthBadge : ''
                     ]
                 );
-                $li->addAttributes(['class' => 'nav-item']);
+                $li->addAttributes(['class' => 'nav-item' . $class]);
 
                 $ul->add($li);
             }
@@ -178,26 +182,14 @@ class ConfigMenu extends BaseHtmlElement
         }
     }
 
-    protected function addItem()
-    {
-    }
-
-    protected function addSection($title)
-    {
-    }
-
-    protected function getSection($section)
-    {
-    }
-
     protected function assemble()
     {
         $username = Auth::getInstance()->getUser()->getUsername();
 
-        $this->add(
+        $this->add([
             HtmlElement::create(
                 'li',
-                ['class' => 'nav-item segmented-nav-item'],
+                ['class' => 'nav-item'],
                 [
                     HtmlElement::create(
                         'a',
@@ -210,10 +202,16 @@ class ConfigMenu extends BaseHtmlElement
                             ),
                             $username
                         ]
-                    ),
+                    )
+                ]
+            ),
+            HtmlElement::create(
+                'li',
+                Attributes::create(['class' => 'nav-item']),
+                [
                     HtmlElement::create(
-                        'span',
-                        Attributes::create(['class' => 'hover-me']),
+                        'a',
+                        [],
                         [
                             new Icon('cog'),
                             $this->createHealthBadge(),
@@ -221,7 +219,7 @@ class ConfigMenu extends BaseHtmlElement
                     ),
                     $this->createLevel2Menu()
                 ]
-            )
-        );
+            ),
+        ]);
     }
 }
