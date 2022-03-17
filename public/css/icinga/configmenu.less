@@ -1,27 +1,104 @@
-.config-menu {
+#menu .config-menu {
   // debug
-  background: lavender;
   position: relative;
   margin-top: auto;
 
-  .nav.nav-level-1 {
+  .nav-level-1 {
     display: flex;
     flex-wrap: nowrap;
 
-    .nav-item {
+    > .nav-item {
+      // User
       &:first-child {
         width: 100%;
       }
 
+      // ⚙️ icon
       &:last-child {
-        margin-right: 28px;
+        padding-right: 2.5em;
+
+        > a {
+          overflow: visible !important;
+          position: relative;
+
+          // pseudo-element for state background
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: .2em;
+            right: .2em;
+            bottom: .2em;
+            left: .2em;
+            .rounded-corners()
+          }
+
+          .icon {
+            position: relative;
+          }
+
+          .state-badge {
+            position: absolute;
+            left: -1em;
+            top: 0;
+          }
+
+          &:hover {
+            background: none !important;
+          }
+        }
+
+        &.active {
+          background: none;
+        }
+
+        &.active > a {
+          color: @body-bg-color;
+
+          &:before { background: @icinga-blue }
+        }
+
+        &:hover > a:before {
+          background: @gray;
+        }
       }
+
+      &:hover .nav-level-2 {
+        display: block;
+      }
+
+      &:hover > a > .state-badge {
+        display: none;
+      }
+
+      &:hover + .nav-item {
+        background: @menu-hover-bg-color;
+      }
+
+      // Remove caret
+      a:after {
+        display: none;
+      }
+    }
+
+    .state-badge {
+      line-height: 1.2;
+      padding: .25em;
     }
   }
 
-  .nav-item {
-    &:hover .nav-level-2 {
-      display: block;
+  .nav-level-2 > .nav-item {
+    &:hover {
+      background: @menu-hover-bg-color;
+    }
+  }
+
+  .badge-nav-item > a {
+    display: flex;
+    align-items: baseline;
+
+    .state-badge {
+      margin-left: auto;
     }
   }
 
@@ -31,7 +108,10 @@
 
   .user-ball {
     background: @icinga-blue;
-    color: white;
+    color: @body-bg-color;
+    border: 1px solid @body-bg-color;
+    // compensate border vertically and add space to the right;
+    margin: -1px .2em -2px 0;
 
     // ipl-web/asset/css/balls.less: .ball
     border-radius: 50%;
@@ -54,7 +134,40 @@
     text-transform: uppercase;
 
     font-style: normal;
-    margin-right: .2em;
+    line-height: 1.2;
+  }
+}
+
+#layout:not(.sidebar-collapsed) #menu .config-menu {
+  .nav-item {
+    &.active.selected + .nav-item {
+      background: @icinga-blue;
+
+      > a { color: white; }
+    }
+  }
+}
+
+.sidebar-collapsed .config-menu {
+  .nav-level-1 {
+    flex-direction: column;
+
+    // ⚙️ icon
+    .nav-item:last-child {
+      padding-right: 0;
+      padding-bottom: 4em;
+
+      i.icon:before {
+        width: 1.5em;
+      }
+    }
+  }
+
+  .flyout {
+    left: 100%;
+    bottom: 0;
+    right: auto;
+    width: 16em;
   }
 }
 
@@ -66,10 +179,30 @@
   right: .5em;
   border: 1px solid @gray-lighter;
   background: @body-bg-color;
-  padding: .5em;
+  padding: .5em 0;
   box-shadow: 0 0 1em 0 rgba(0,0,0,.25);
+  max-height: calc(100vh - 38px - 1em);
+  overflow: auto;
   .rounded-corners();
 
+  a {
+    font-size: 11/12em;
+    padding: 0.364em 0.545em 0.364em 1.5em;
+
+    &:hover {
+      background: @menu-2ndlvl-highlight-bg-color;
+    }
+  }
+
+  h3 {
+    font-size: 10/12em;
+    color: @text-color-light;
+    letter-spacing: .1px;
+    padding: 0.364em 0.545em 0.364em 0.545em;
+    margin: 0;
+  }
+
+  // Caret
   &:after {
     content: "";
     display: block;
@@ -81,6 +214,6 @@
     height: 1.1em;
     width: 1.1em;
     bottom: -.6em;
-    right: 28px;
+    right: 2.5em;
   }
 }
