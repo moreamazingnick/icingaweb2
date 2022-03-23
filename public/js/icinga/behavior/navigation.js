@@ -324,7 +324,8 @@
      */
     Navigation.prototype.hideFlyoutMenu = function(e) {
         var $layout = $('#layout');
-        var $hovered = $('#menu').find('.nav-level-1 > .nav-item.hover');
+        var $nav = $(e.target).closest('.primary-nav');
+        var $hovered = $nav.find('.nav-level-1 > .nav-item.hover');
 
         if (! $hovered.length) {
             $layout.removeClass('menu-hovered');
@@ -334,7 +335,7 @@
 
         setTimeout(function() {
             try {
-                if ($hovered.is(':hover') || $('#menu').is(':hover')) {
+                if ($hovered.is(':hover') || $nav.is(':hover')) {
                     return;
                 }
             } catch(e) { /* Bypass because if IE8 */ };
