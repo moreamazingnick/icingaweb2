@@ -39,8 +39,6 @@
 
           .state-badge {
             position: absolute;
-            left: -1em;
-            top: 0;
           }
 
           &:hover {
@@ -146,6 +144,11 @@
       > a { color: white; }
     }
   }
+
+  .nav-level-1 .nav-item:last-child .state-badge {
+    left: -1em;
+    top: 0;
+  }
 }
 
 .sidebar-collapsed .config-menu {
@@ -168,6 +171,15 @@
     bottom: 0;
     right: auto;
     width: 16em;
+  }
+
+  .state-badge {
+    right: .5em;
+    bottom: .25em;
+    font-size: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 4em;
   }
 }
 
